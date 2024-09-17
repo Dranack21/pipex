@@ -6,7 +6,7 @@
 /*   By: habouda <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 01:08:12 by habouda           #+#    #+#             */
-/*   Updated: 2024/09/17 15:42:36 by habouda          ###   ########.fr       */
+/*   Updated: 2024/09/17 17:10:30 by habouda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,9 @@
 # include <sys/wait.h>
 # include <fcntl.h>
 # include "libft/libft.h"
+
+void	child_process(int fd[2], char *argv[], char **envp);
+void	parent_process(int fd[2], char *argv[], char **envp);
+void	execute(char *envp[], char *argv);
 
 #endif
