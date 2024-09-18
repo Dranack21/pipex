@@ -6,12 +6,12 @@
 /*   By: habouda <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 01:08:12 by habouda           #+#    #+#             */
-/*   Updated: 2024/09/18 17:22:03 by habouda          ###   ########.fr       */
+/*   Updated: 2024/09/18 17:28:32 by habouda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_H
-#define PIPEX_H
+# define PIPEX_H
 
 # include <stdlib.h>
 # include <unistd.h>

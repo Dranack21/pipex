@@ -6,7 +6,7 @@
 /*   By: habouda <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 01:08:09 by habouda           #+#    #+#             */
-/*   Updated: 2024/09/18 17:28:01 by habouda          ###   ########.fr       */
+/*   Updated: 2024/09/18 17:30:05 by habouda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void	parent_process(int fd[2], char *argv[], char **envp)
 	if (execute(envp, argv[3]) < 0)
 		exit(-1);
 }
+
 int	main(int argc, char *argv[], char *envp[])
 {
 	int		fd[2];
