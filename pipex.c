@@ -6,7 +6,7 @@
 /*   By: habouda <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 01:08:09 by habouda           #+#    #+#             */
-/*   Updated: 2024/09/17 18:09:57 by habouda          ###   ########.fr       */
+/*   Updated: 2024/09/18 15:57:05 by habouda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,6 @@ void	execute(char *envp[], char *argv)
 	char	*path;
 	int		i;
 	i = 0;
-	// ft_printf("erreur");
-
-	// access(/bin/ls, argv) == 0
 	while (ft_strnstr(envp[i], "PATH", 4) == 0)
 		i++;
 	cmd = ft_split(argv, ' ');
