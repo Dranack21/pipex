@@ -6,7 +6,7 @@
 /*   By: habouda <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 01:08:09 by habouda           #+#    #+#             */
-/*   Updated: 2024/09/18 17:25:43 by habouda          ###   ########.fr       */
+/*   Updated: 2024/09/18 17:28:01 by habouda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,17 @@ int	execute(char *envp[], char *argv)
 		full_path = ft_strjoin(paths[i], "/");
 		full_path = ft_strjoin(full_path, cmd[0]);
 		if (access(full_path, X_OK) == 0)
-			return(execve(full_path, cmd, envp), 1);
+			return (execve(full_path, cmd, envp), 1);
 		i++;
 		free(full_path);
 	}
-	return(write(2, "command not found", 18), -1);
+	return (write(2, "command not found", 18), -1);
 }
 
 void	child_process(int fd[2], char *argv[], char **envp)
 {
 	int	file;
-	
+
 	file = open(argv[1], O_RDONLY);
 	if (file < 0)
 	{
@@ -65,7 +65,7 @@ void	parent_process(int fd[2], char *argv[], char **envp)
 		perror("cannot open file");
 		exit(-1);
 	}
-	dup2(file , STDOUT_FILENO);
+	dup2(file, STDOUT_FILENO);
 	dup2(fd[0], STDIN_FILENO);
 	close(fd[1]);
 	if (execute(envp, argv[3]) < 0)
@@ -73,8 +73,8 @@ void	parent_process(int fd[2], char *argv[], char **envp)
 }
 int	main(int argc, char *argv[], char *envp[])
 {
-	int	fd[2];
-	pid_t pid;
+	int		fd[2];
+	pid_t	pid;
 
 	if (argc == 5)
 	{
@@ -82,7 +82,7 @@ int	main(int argc, char *argv[], char *envp[])
 			return (-1);
 		pid = fork();
 		if (pid == -1)
-			exit(-1);	
+			exit(-1);
 		if (pid == 0)
 			child_process(fd, argv, envp);
 		waitpid(0, NULL, 0);
