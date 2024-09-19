@@ -6,7 +6,7 @@
 /*   By: habouda <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 01:08:09 by habouda           #+#    #+#             */
-/*   Updated: 2024/09/18 17:30:05 by habouda          ###   ########.fr       */
+/*   Updated: 2024/09/19 16:43:22 by habouda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	execute(char *envp[], char *argv)
 {
 	char	**cmd;
 	char	**paths;
+	char	*temp;
 	char	*full_path;
 	int		i;
 
@@ -28,13 +29,21 @@ int	execute(char *envp[], char *argv)
 	i = 0;
 	while (paths[i])
 	{
-		full_path = ft_strjoin(paths[i], "/");
-		full_path = ft_strjoin(full_path, cmd[0]);
+		temp = ft_strjoin(paths[i], "/");
+		full_path = ft_strjoin(temp, cmd[0]);
+		free(temp);
 		if (access(full_path, X_OK) == 0)
-			return (execve(full_path, cmd, envp), 1);
+		{
+			execve(full_path, cmd, envp);
+			ft_free_array(paths);
+			ft_free_array(cmd);
+			return (1);
+		}
 		i++;
 		free(full_path);
 	}
+	ft_free_array(cmd);
+	ft_free_array(paths);
 	return (write(2, "command not found", 18), -1);
 }
 
@@ -51,6 +60,8 @@ void	child_process(int fd[2], char *argv[], char **envp)
 	dup2(fd[1], STDOUT_FILENO);
 	dup2(file, STDIN_FILENO);
 	close(fd[0]);
+	close(fd[1]);
+	close(file);
 	if (execute(envp, argv[2]) < 0)
 		exit(-1);
 }
@@ -68,6 +79,8 @@ void	parent_process(int fd[2], char *argv[], char **envp)
 	dup2(file, STDOUT_FILENO);
 	dup2(fd[0], STDIN_FILENO);
 	close(fd[1]);
+	close(fd[0]);
+	close(file);
 	if (execute(envp, argv[3]) < 0)
 		exit(-1);
 }
