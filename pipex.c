@@ -6,12 +6,21 @@
 /*   By: habouda <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 01:08:09 by habouda           #+#    #+#             */
-/*   Updated: 2024/09/19 16:43:22 by habouda          ###   ########.fr       */
+/*   Updated: 2024/09/27 01:29:20 by habouda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-#include <stdio.h>
+
+int	get_path(char *envp[])
+{
+	int		i;
+
+	i = 0;
+	while (ft_strnstr(envp[i], "PATH", 4) == 0)
+		i++;
+	return (i);
+}
 
 int	execute(char *envp[], char *argv)
 {
@@ -21,13 +30,10 @@ int	execute(char *envp[], char *argv)
 	char	*full_path;
 	int		i;
 
-	i = 0;
-	while (ft_strnstr(envp[i], "PATH", 4) == 0)
-		i++;
-	paths = ft_split(envp[i] + 5, ':');
+	paths = ft_split(envp[get_path(envp)] + 5, ':');
 	cmd = ft_split(argv, ' ');
 	i = 0;
-	while (paths[i])
+	while (paths[i++])
 	{
 		temp = ft_strjoin(paths[i], "/");
 		full_path = ft_strjoin(temp, cmd[0]);
@@ -36,10 +42,8 @@ int	execute(char *envp[], char *argv)
 		{
 			execve(full_path, cmd, envp);
 			ft_free_array(paths);
-			ft_free_array(cmd);
-			return (1);
+			return (ft_free_array(cmd), 1);
 		}
-		i++;
 		free(full_path);
 	}
 	ft_free_array(cmd);
