@@ -6,7 +6,7 @@
 /*   By: habouda <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 01:08:12 by habouda           #+#    #+#             */
-/*   Updated: 2024/09/18 17:28:32 by habouda          ###   ########.fr       */
+/*   Updated: 2024/09/27 01:37:15 by habouda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,5 @@
 void	child_process(int fd[2], char *argv[], char **envp);
 void	parent_process(int fd[2], char *argv[], char **envp);
 int		execute(char *envp[], char *argv);
-
+int		get_path(char *envp[]);
 #endif
